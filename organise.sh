@@ -10,7 +10,7 @@ cd "$download_dir"
 #use An ifs VARIABLE to tell Bash to use the , delimite -a used to ensure words separated by ifs are in separate array
 #indexies
 #-a tells it to store comma separates values in between IFS in an array starting from index one
-IFS="," read -a folder_array -p "Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Compressed,Executables, Images separated by commas:"
+IFS="," read -a folder_array -p $"Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Compressed,Executables, Images separated by commas:"
 
 #Map folders with their extensions using an associative array use declare -a to create an associative array
 
@@ -34,17 +34,19 @@ for folders in "${folder_array[@]}";
         
     done
 
-for folder in "${folder_map[@]}";
+for folder in "${!folder_map[@]}";
     do
+    if [[ " ${folder_array[*]} " == *" $folder"* ]]; then
             #Get the comma separated extensions from the current element into an array <<< asigns a string from after to the thing before
-            IFS="," read -a extensions <<< "${!folder_map[$folder]}" #!Needed to access the keys of an associative array
-            echo "$folder"
+            IFS="," read -a extensions <<< "${folder_map[$folder]}" #!Needed to access the keys of an associative array
+            echo "test" "$folder"
         for ext in "${extensions[@]}"; #Loop through the extensions moving as we go
                 do
                     #Move any files that match the extension into the folder
-                    echo "$ext"
-                    mv *."$ext" "$folder"  #redirect any error messages to /dev/null
+                    echo "tes2t" "$ext"
+                    mv *."$ext" "$folder"  
         done
+        fi
     done
 
 
