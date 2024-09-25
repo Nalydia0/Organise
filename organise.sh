@@ -10,7 +10,8 @@ cd "$download_dir"
 #use An ifs VARIABLE to tell Bash to use the , delimite -a used to ensure words separated by ifs are in separate array
 #indexies
 #-a tells it to store comma separates values in between IFS in an array starting from index one
-IFS="," read -a dir_array -p "Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Images separated by commas:"
+IFS="," read -a folder_array -p "Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Images separated by commas:"
+
 
 
 
