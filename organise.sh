@@ -10,7 +10,7 @@ cd "$download_dir"
 #use An ifs VARIABLE to tell Bash to use the , delimite -a used to ensure words separated by ifs are in separate array
 #indexies
 #-a tells it to store comma separates values in between IFS in an array starting from index one
-IFS="," read -a folder_array -p "Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Images separated by commas:"
+IFS="," read -a folder_array -p "Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Compressed,Executables, Images separated by commas:"
 
 #Map folders with their extensions using an associative array use declare -a to create an associative array
 
@@ -21,6 +21,8 @@ folder_map[Documents]="pdf,txt,docx,doc,odt,csv"
 folder_map[Images]="png,img,jpeg,jpg,svg,gif,tiff,tif,webp,bmp"
 folder_map[Videos]="mp4,webm,mkv,avchd,flv,mov,avi"
 folder_map[Audio]="m4a,mp3,wav"
+folder_map[Compressed]="rar,zip,7z"
+folder_map[Executables]="exe"
 
 
 
