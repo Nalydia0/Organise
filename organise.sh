@@ -33,19 +33,21 @@ for folders in "${folder_array[@]}";
         mkdir -p "$folders"
         
     done
-
-for folder in "${!folder_map[@]}";
-    do
+    #Loop over all the folder types they have selected
+for folder in "${!folder_map[@]}"; do
+    #Check to ensure that the folder is in the list of folders
     if [[ " ${folder_array[*]} " == *" $folder"* ]]; then
             #Get the comma separated extensions from the current element into an array <<< asigns a string from after to the thing before
             IFS="," read -a extensions <<< "${folder_map[$folder]}" #!Needed to access the keys of an associative array
             
-        for ext in "${extensions[@]}"; #Loop through the extensions moving as we go
-                do
+        for ext in "${extensions[@]}"; do #Loop through the extensions moving as we go 
                     #Move any files that match the extension into the folder
                     echo "Moving all files that use the $ext extension"
                     mv *."$ext" "$folder"  
-        done
+            done
+        else
+        #We need to handle the case wherein a folder is not found
+        echo "The folder: "$folder" is not in the list of folders provided"
         fi
     done
 
