@@ -24,6 +24,17 @@ folder_map[Audio]="m4a,mp3,wav"
 folder_map[Compressed]="rar,zip,7z"
 folder_map[Executables]="exe"
 
+#Create Folders by using a for loop to loop through the input array
+##Loop through each element and create a folder, don't if it already exists
+for folder in "${folder_array[@]}"
+    do
+        #-p so what if it already exists it won't throw and error
+        mkdir -p "$folder"
+    done
+
+
+
+
 
 
 
