@@ -42,7 +42,7 @@ for folder in "${folder_map[@]}";
         for ext in "${extensions[@]}"; #Loop through the extensions moving as we go
                 do
                     #Move any files that match the extension into the folder
-                    mv *."$ext" "$folder" 2>/dev/null #redirect any error messages to /dev/null
+                    mv *."$ext" "$folder"  #redirect any error messages to /dev/null
         done
     done
 
