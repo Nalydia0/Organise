@@ -1,10 +1,23 @@
 #!/usr/bin/bash
 
-#Firstly we need to create our download dir
-read -p "Please input the full directory you want to sort into folders" organise_dir
+# Prompt the user to input the directory
+# Firstly we need to create our download dir
+echo "Please input the full directory you want to sort into folders: " 
+read -r organise_dir
+# Strip quotes if present
+organise_dir=${organise_dir//\"/}
+organise_dir=${organise_dir//\'/}
 
-#We must now cd to the download dir
+# Convert the Windows path to a format Bash can understand
+organise_dir=${organise_dir//\\//}
+organise_dir=${organise_dir//C:/\/c}
+
+if [[ ! -d "$organise_dir" ]] ; then
+    echo "You've fucked it"
+
+fi
 cd "$organise_dir"
+
 
 #This allows reading and also (by using -p which means promp) we can output a promp and store
 #use An ifs VARIABLE to tell Bash to use the , delimite -a used to ensure words separated by ifs are in separate array
