@@ -19,6 +19,7 @@ declare -a folder_map
 #Map Folders i.e pdf,txt,docx, doc, odt with the syntax arrayName[key1]=value1,value 2 etc 
 folder_map[Documents]="pdf,txt,docx,doc,odt,csv"
 folder_map[Images]="png,img,jpeg,jpg,svg,gif,tiff,tif,webp,bmp"
+folder_map[Videos]="mp4,webm,mkv,avchd,flv,mov,avi"
 
 
 
