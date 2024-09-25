@@ -14,7 +14,7 @@ IFS="," read -a folder_array -p $"Hello there, today we will be sorting the down
 
 #Map folders with their extensions using an associative array use declare -a to create an associative array
 
-declare -a folder_map
+declare -A folder_map 
 
 #Map Folders i.e pdf,txt,docx, doc, odt with the syntax arrayName[key1]=value1,value 2 etc 
 folder_map[Documents]="pdf,txt,docx,doc,odt,csv"
@@ -39,11 +39,11 @@ for folder in "${!folder_map[@]}";
     if [[ " ${folder_array[*]} " == *" $folder"* ]]; then
             #Get the comma separated extensions from the current element into an array <<< asigns a string from after to the thing before
             IFS="," read -a extensions <<< "${folder_map[$folder]}" #!Needed to access the keys of an associative array
-            echo "test" "$folder"
+            
         for ext in "${extensions[@]}"; #Loop through the extensions moving as we go
                 do
                     #Move any files that match the extension into the folder
-                    echo "tes2t" "$ext"
+                    echo "Moving all files that use the $ext extension"
                     mv *."$ext" "$folder"  
         done
         fi
