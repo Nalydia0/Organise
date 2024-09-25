@@ -27,12 +27,26 @@ folder_map[Executables]="exe"
 #Create Folders by using a for loop to loop through the input array
 ##Loop through each element and create a folder, don't if it already exists
 
-for folder in "${folder_array[@]}"
+for folders in "${folder_array[@]}";
     do
         #-p so what if it already exists it won't throw and error
-        mkdir  "$folder"
+        mkdir -p "$folders"
         
     done
+
+for folder in "${folder_map[@]}";
+    do
+            #Get the comma separated extensions from the current element into an array <<< asigns a string from after to the thing before
+            IFS="," read -a extensions <<< "${!folder_map[$folder]}" #!Needed to access the keys of an associative array
+            
+        for ext in "${extensions[@]}"; #Loop through the extensions moving as we go
+                do
+                    #Move any files that match the extension into the folder
+                    mv *."$ext" "$folder" 2>/dev/null #redirect any error messages to /dev/null
+        done
+    done
+
+
 
 
 
