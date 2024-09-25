@@ -20,6 +20,7 @@ declare -a folder_map
 folder_map[Documents]="pdf,txt,docx,doc,odt,csv"
 folder_map[Images]="png,img,jpeg,jpg,svg,gif,tiff,tif,webp,bmp"
 folder_map[Videos]="mp4,webm,mkv,avchd,flv,mov,avi"
+folder_map[Audio]="m4a,mp3,wav"
 
 
 
