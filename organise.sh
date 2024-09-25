@@ -12,7 +12,7 @@ cd "$download_dir"
 #-a tells it to store comma separates values in between IFS in an array starting from index one
 IFS="," read -a folder_array -p $"Hello there, today we will be sorting the downloads directory.\nPlease enter the folders you'd like to make, i.e. Documents, Videos, Compressed,Executables, Images separated by commas:"
 
-#Map folders with their extensions using an associative array use declare -a to create an associative array
+#Map folders with their extensions using an associative array use declare -A to create an associative array
 
 declare -A folder_map 
 
