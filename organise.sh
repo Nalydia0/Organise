@@ -1,10 +1,10 @@
 #!/usr/bin/bash
 
 #Firstly we need to create our download dir
-download_dir="C:\Users\Dylan#\Downloads"
+read -p "Please input the full directory you want to sort into folders" organise_dir
 
 #We must now cd to the download dir
-cd "$download_dir"
+cd "$organise_dir"
 
 #This allows reading and also (by using -p which means promp) we can output a promp and store
 #use An ifs VARIABLE to tell Bash to use the , delimite -a used to ensure words separated by ifs are in separate array
