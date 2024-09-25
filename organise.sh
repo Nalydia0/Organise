@@ -38,10 +38,11 @@ for folder in "${folder_map[@]}";
     do
             #Get the comma separated extensions from the current element into an array <<< asigns a string from after to the thing before
             IFS="," read -a extensions <<< "${!folder_map[$folder]}" #!Needed to access the keys of an associative array
-            
+            echo "$folder"
         for ext in "${extensions[@]}"; #Loop through the extensions moving as we go
                 do
                     #Move any files that match the extension into the folder
+                    echo "$ext"
                     mv *."$ext" "$folder"  #redirect any error messages to /dev/null
         done
     done
