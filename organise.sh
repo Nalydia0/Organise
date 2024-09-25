@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 #Firstly we need to create our download dir
-download_dir="c/Users/Dylan#/Downloads"
+download_dir="C:\Users\Dylan#\Downloads"
 
 #We must now cd to the download dir
 cd "$download_dir"
@@ -26,10 +26,12 @@ folder_map[Executables]="exe"
 
 #Create Folders by using a for loop to loop through the input array
 ##Loop through each element and create a folder, don't if it already exists
+
 for folder in "${folder_array[@]}"
     do
         #-p so what if it already exists it won't throw and error
-        mkdir -p "$folder"
+        mkdir  "$folder"
+        
     done
 
 
