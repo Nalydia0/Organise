@@ -16,8 +16,10 @@ IFS="," read -a folder_array -p "Hello there, today we will be sorting the downl
 
 declare -a folder_map
 
-#Map Doccuments i.e pdf,txt,docx, doc, odt with the syntax arrayName[key1]=value1,value 2 etc 
+#Map Folders i.e pdf,txt,docx, doc, odt with the syntax arrayName[key1]=value1,value 2 etc 
 folder_map[Documents]="pdf,txt,docx,doc,odt,csv"
+folder_map[Images]="png,img,jpeg,jpg,svg,gif,tiff,tif,webp,bmp"
+
 
 
 
