@@ -13,8 +13,8 @@ organise_dir=${organise_dir//\\//}
 organise_dir=${organise_dir//C:/\/c}
 
 if [[ ! -d "$organise_dir" ]] ; then
-    echo "You've fucked it"
-
+    echo "This Directory does not exist or has been inputted incorrectly"
+    exit 1
 fi
 cd "$organise_dir"
 
@@ -38,7 +38,7 @@ folder_map[Compressed]="rar,zip,7z"
 folder_map[Executables]="exe"
 
 #Create Folders by using a for loop to loop through the input array
-##Loop through each element and create a folder, don't if it already exists
+#Loop through each element and create a folder, don't if it already exists
 
 for folders in "${folder_array[@]}";
     do
