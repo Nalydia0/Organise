@@ -2,7 +2,7 @@
 
 # Prompt the user to input the directory
 # Firstly we need to create our download dir
-echo "Please input the full directory you want to sort into folders: " 
+echo -e "Please input the full directory you want to sort into folders \n for windows systems, please surround your directory in " " " 
 read -r organise_dir
 # Strip quotes if present
 organise_dir=${organise_dir//\"/}
