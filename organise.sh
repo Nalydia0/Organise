@@ -32,9 +32,12 @@ IFS="," read -a folder_array -p $"Hello there, today we will be sorting the down
 #We will use xargs to trim the whitespace
 
 #Loop through indicies or the array and trim their whitespace
+ #Using Command substituion to do the xargs then store the result in the folder array index
+
 for j in "${!folder_array[@]}"; do
     folder_array[$j]=$(xargs <<< "${folder_array[$j]}")
 done
+
 #Map folders with their extensions using an associative array use declare -A to create an associative array
 
 declare -A folder_map 
