@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
 # Prompt the user to input the directory
-echo -e "Please input the full directory you want to sort into folders "
+# Firstly we need to create our download dir
+echo -e "Please input the full directory you want to sort into folders " 
 read -r organise_dir
-
 # Strip quotes if present
 organise_dir=${organise_dir//\"/}
 organise_dir=${organise_dir//\'/}
@@ -16,16 +16,25 @@ if [[ ! -d "$organise_dir" ]]; then
     echo "This Directory does not exist or has been inputted incorrectly"
     exit 1
 else
-    cd "$organise_dir" || exit
+    cd "$organise_dir"
 fi
 
-# Read user input for file types and folder names
-IFS="," read -r -p $"Hello there, today we will be sorting the $organise_dir directory.\nPlease enter the file types and folder names separated by commas: " folder_input
 
-# Create an array from the input string
+
+#This allows reading and also (by using -p which means promp) we can output a promp and store
+#use An ifs VARIABLE to tell Bash to use the , delimite -a used to ensure words separated by ifs are in separate array
+#indexies
+#-a tells it to store comma separates values in between IFS in an array starting from index one
+IFS="," read -r -p $"Hello there, today we will be sorting the $organise_dir directory.\nPlease enter the file types and folder names separted by commas i.e Documents,Docs,Images,Media,Videos,Vids,Compressed,rars,Executables,exes,Audio,Sound: " folder_input 
+#Create an array from this input string
 IFS=',' read -ra folder_array <<< "$folder_input"
 
+
+#Map folders with their extensions using an associative array use declare -A to create an associative array
+
 declare -A folder_map 
+
+#Map Folders i.e pdf,txt,docx, doc, odt with the syntax arrayName[key1]=value1,value 2 etc 
 folder_map[Documents]="pdf,txt,docx,doc,odt,csv"
 folder_map[Images]="png,img,jpeg,jpg,svg,gif,tiff,tif,webp,bmp"
 folder_map[Videos]="mp4,webm,mkv,avchd,flv,mov,avi"
@@ -33,39 +42,55 @@ folder_map[Audio]="m4a,mp3,wav"
 folder_map[Compressed]="rar,zip,7z"
 folder_map[Executables]="exe"
 
-# Loop through each pair of entries in the folder array
+
+#We now need to loop through every entry in our folder array
 for ((i=0; i<${#folder_array[@]}; i+=2)); do
     folder_type=${folder_array[i]}
     folder_name=${folder_array[i+1]}
 
-    # Trim whitespace for both name and type
+    
+    #We need to trim any whitespace for the folder name in case of user input being different i.e ",videos " or ",   videos "
+    #We want to default it to have no spaces
+    #We will use xargs to trim the whitespace
+    
+    #trim whitespace for both name and type
     folder_type=$(xargs <<< "$folder_type")
     folder_name=$(xargs <<< "$folder_name")
 
-    # Check if both folder_type and folder_name are not empty
-    if [[ -z "$folder_type" || -z "$folder_name" ]]; then
-        echo "Invalid entry: folder type or folder name is empty."
-        continue
-    fi
-
-    # Check if the folder type exists in the folder map
-    if [[ -v folder_map[$folder_type] ]]; then
-        # Check if the folder already exists; create it if it doesn't
-        if [[ ! -d "$folder_name" ]]; then
-            echo "Creating a $folder_name folder"
-            mkdir "$folder_name" || { echo "Failed to create $folder_name"; continue; }
-        else
-            echo "$folder_name already exists, skipping creation."
-        fi
-        
-        # Move files into the created folder
-        IFS=',' read -r -a extensions <<< "${folder_map[$folder_type]}"
-        for ext in "${extensions[@]}"; do
-            echo "Moving all files that use the $ext extension"
-            mv *."$ext" "$folder_name/" 2>/dev/null || echo "No files with the .$ext extension found."
-        done
+   #Check if the folder type exists in the folder mapp
+    if [[ -v folder_map[$folder_type] ]];  then #-v checks to ensure the variable exists i.e folder_types exists in folder map
+        #If the folder doesn't already exist we want to create it
+        #so check if iut does
+    if  ! test -d "$folder_name"; then
+        #-p so what if it already exists it won't throw and error
+        echo "Creating a $folder_name folder"
+        mkdir "$folder_name" #mkdir -p not needed anymore because we're checking the existence
     else
-        # Handle case where folder type is not found
-        echo "The folder: $folder_type is not in the list of folders provided"
+    echo "$folder_name already exists skipping creation"
     fi
-done
+    #Move our files
+        IFS=',' read -r -a extensions <<< "${folder_map[$folder_type]}" #-r says to treat backslashes as literal -a says to store result in an array called extensions
+        for ext in "${extensions[@]}"; do #Loop through the extensions moving as we go 
+                    #Move any files that match the extension into the folder
+                    echo "Moving all files that use the $ext extension"
+                    
+                    mv *."$ext" "$folder_name/"  #Added / in case folder nname has spaces
+            done
+        else
+        #We need to handle the case wherein a folder is not found
+        echo "The folder: "$folder_type" is not in the list of folders provided"
+        fi
+    done
+
+
+
+
+
+
+
+
+
+
+
+
+
